@@ -26,12 +26,12 @@
 
                 <!-- Fazer o DropDown Aqui -->
                 <div class="dropdown ">
-                    <li class="dropdown list-style-none" >
-                        <a href="#" class="dropdown-toggle text-decoration-none" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: whitesmoke"  list-style: none ><font size=4> Seção Cadastral </font> <span class="caret"></span></a>
+                    <li class="dropdown list-style-none">
+                        <a href="#" class="dropdown-toggle text-decoration-none" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: whitesmoke" list-style: none><font size=4> Seção Cadastral </font> <span class="caret"></span></a>
                         <ul class="dropdown-menu  bg-dark" id="dropdownSeguranca" role="menu" aria-labelledby="dropdownMenu1">
 
-                            <li>@Html.ActionLink("Seção Empresarial", "formulary", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("Seção Contratual", "RegisterUsers", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Cad. Empresa", "Index", "Empresa", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Cad. Usuario", "Index", "Funcionario", new { area = "" }, new { @class = "nav-link" })</li>
 
                         </ul>
                     </li>

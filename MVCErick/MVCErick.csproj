@@ -134,6 +134,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402071713538_MigracaoUm.cs" />
+    <Compile Include="Migrations\202402071713538_MigracaoUm.designer.cs">
+      <DependentUpon>202402071713538_MigracaoUm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402071813265_updateTiposTabela.cs" />
+    <Compile Include="Migrations\202402071813265_updateTiposTabela.designer.cs">
+      <DependentUpon>202402071813265_updateTiposTabela.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EmpresaModels.cs" />
     <Compile Include="Models\UsuarioModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -282,10 +291,14 @@
     <Content Include="Views\Empresa\Details.cshtml" />
     <Content Include="Views\Empresa\Edit.cshtml" />
     <Content Include="Views\Empresa\Index.cshtml" />
+    <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Usuario\Delete.cshtml" />
+    <Content Include="Views\Usuario\Details.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -297,6 +310,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202402071713538_MigracaoUm.resx">
+      <DependentUpon>202402071713538_MigracaoUm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402071813265_updateTiposTabela.resx">
+      <DependentUpon>202402071813265_updateTiposTabela.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

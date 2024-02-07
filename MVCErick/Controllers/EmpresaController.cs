@@ -13,12 +13,12 @@ namespace MVCErick.Controllers
 {
     public class EmpresaController : Controller
     {
-        private ApplicationDBContext db = new ApplicationDBContext();
+        private ApplicationDBContext _dbContext = new ApplicationDBContext();
 
         // GET: Empresa
         public ActionResult Index()
         {
-            return View(db.Empresas.ToList());
+            return View(_dbContext.Empresas.ToList());
         }
 
         // GET: Empresa/Details/5
@@ -28,7 +28,7 @@ namespace MVCErick.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmpresaModels empresaModels = db.Empresas.Find(id);
+            EmpresaModels empresaModels = _dbContext.Empresas.Find(id);
             if (empresaModels == null)
             {
                 return HttpNotFound();
@@ -51,8 +51,8 @@ namespace MVCErick.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Empresas.Add(empresaModels);
-                db.SaveChanges();
+                _dbContext.Empresas.Add(empresaModels);
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +66,7 @@ namespace MVCErick.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmpresaModels empresaModels = db.Empresas.Find(id);
+            EmpresaModels empresaModels = _dbContext.Empresas.Find(id);
             if (empresaModels == null)
             {
                 return HttpNotFound();
@@ -83,8 +83,8 @@ namespace MVCErick.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(empresaModels).State = EntityState.Modified;
-                db.SaveChanges();
+                _dbContext.Entry(empresaModels).State = EntityState.Modified;
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(empresaModels);
@@ -97,7 +97,7 @@ namespace MVCErick.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmpresaModels empresaModels = db.Empresas.Find(id);
+            EmpresaModels empresaModels = _dbContext.Empresas.Find(id);
             if (empresaModels == null)
             {
                 return HttpNotFound();
@@ -110,9 +110,9 @@ namespace MVCErick.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            EmpresaModels empresaModels = db.Empresas.Find(id);
-            db.Empresas.Remove(empresaModels);
-            db.SaveChanges();
+            EmpresaModels empresaModels = _dbContext.Empresas.Find(id);
+            _dbContext.Empresas.Remove(empresaModels);
+            _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +120,7 @@ namespace MVCErick.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _dbContext.Dispose();
             }
             base.Dispose(disposing);
         }
