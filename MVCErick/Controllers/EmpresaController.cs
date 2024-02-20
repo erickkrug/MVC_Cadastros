@@ -49,6 +49,13 @@ namespace MVCErick.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,NomeEmpresa,DescricaoEmpresa,Localidade,CNPJ,DataCriacao")] EmpresaModels empresaModels)
         {
+            // Criar uma validação de CNPJ aqui ;3
+            if (_dbContext.Empresas.ToList().Exists(u => u.CNPJ == empresaModels.CNPJ))
+            {
+                ModelState.AddModelError("CNPJ", "O CNPJ informado já existe no banco de dados.");
+            }
+
+
             if (ModelState.IsValid)
             {
                 _dbContext.Empresas.Add(empresaModels);

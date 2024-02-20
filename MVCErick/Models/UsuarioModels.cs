@@ -20,13 +20,12 @@ namespace MVCErick.Models
         public string Endereco { get; set; }
         [MaxLength(20)]
         public string Telefone { get; set; }
+        public int EmpresaId { get; set; }
+
 
 
 
         //Um para muitos
-        // Chave Estrangeira para a empresa
-        [ForeignKey("Empresa")]
-        public int EmpresaId { get; set; }
         public EmpresaModels Empresa { get; set; }
 
 

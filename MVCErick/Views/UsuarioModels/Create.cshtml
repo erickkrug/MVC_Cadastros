@@ -1,0 +1,111 @@
+﻿@model MVCErick.Models.UsuarioModels
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    </head>
+
+    <div class="form-horizontal">
+        <h4>UsuarioModels</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Outros campos do formulário -->
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control", id = "CPF", placeholder = "999.999.999-99" } })
+                @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
+
+                <script>
+                    $(document).ready(function () {
+                        $("#CPF").on('input', function () {
+                            var cpf = $(this).val();
+                            cpf = cpf.replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos
+                            if (cpf.length > 3) {
+                                cpf = cpf.substring(0, 3) + '.' + cpf.substring(3); // Adiciona ponto após os primeiros 3 dígitos
+                            }
+                            if (cpf.length > 7) {
+                                cpf = cpf.substring(0, 7) + '.' + cpf.substring(7); // Adiciona ponto após os próximos 3 dígitos
+                            }
+                            if (cpf.length > 11) {
+                                cpf = cpf.substring(0, 11) + '-' + cpf.substring(11); // Adiciona hífen após os próximos 3 dígitos
+                                cpf = cpf.substring(0, 14); // Botando limites no numero de digitos do CPF
+                            }
+                            $(this).val(cpf);
+                        });
+                    });
+                </script>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" typeof="">
+                @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @class = "form-control", id = "Telefone", placeholder = "(XX)XXXX-XXXX" } })
+                @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+
+
+                <script>
+                    $(document).ready(function () {
+                        $('#Telefone').on('input', function () {
+                            var telefone = $(this).val().replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos
+                            if (telefone.length > 2) {
+                                telefone = '(' + telefone.substring(0, 2) + ')' + telefone.substring(2); // Adiciona parênteses após os primeiros 2 dígitos
+                            }
+                            if (telefone.length > 8) {
+                                telefone = telefone.substring(0, 8) + '-' + telefone.substring(8); // Adiciona hífen após os próximos 4 dígitos
+                            }
+                            if (telefone.length > 13) {
+                                telefone = telefone.substring(0, 14); // Limita o tamanho do telefone
+                            }
+                            $(this).val(telefone);
+                        });
+                    });
+                </script>
+
+            </div>
+        </div>
+
+        <!-- Outros campos do formulário -->
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmpresaId, "EmpresaId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("EmpresaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EmpresaId, " É obrigatorio que o usuário selecione a empresa a qual está atrelado! ", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
