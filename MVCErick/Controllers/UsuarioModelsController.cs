@@ -12,7 +12,7 @@ using MVCErick.Models;
 namespace MVCErick.Controllers
 {
     public class UsuarioModelsController : Controller
-    {
+    { 
         private ApplicationDBContext db = new ApplicationDBContext();
 
         // GET: UsuarioModels

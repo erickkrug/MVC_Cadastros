@@ -47,7 +47,7 @@ namespace MVCErick.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,NomeEmpresa,DescricaoEmpresa,Localidade,CNPJ,DataCriacao")] EmpresaModels empresaModels)
+        public ActionResult Create([Bind(Include = "ID,NomeEmpresa,DescricaoEmpresarial,EnderecoEmpresa,CNPJ,DataCriacao")] EmpresaModels empresaModels)
         {
             // Criar uma validação de CNPJ aqui ;3
             if (_dbContext.Empresas.ToList().Exists(u => u.CNPJ == empresaModels.CNPJ))
@@ -86,7 +86,7 @@ namespace MVCErick.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,NomeEmpresa,DescricaoEmpresa,Localidade,CNPJ,DataCriacao")] EmpresaModels empresaModels)
+        public ActionResult Edit([Bind(Include = "ID,NomeEmpresa,DescricaoEmpresarial,EnderecoEmpresa,CNPJ,DataCriacao")] EmpresaModels empresaModels)
         {
             if (ModelState.IsValid)
             {

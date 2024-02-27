@@ -150,6 +150,14 @@
     <Compile Include="Migrations\202402151805438_ModelFixed.designer.cs">
       <DependentUpon>202402151805438_ModelFixed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402261843207_Migracao260224.cs" />
+    <Compile Include="Migrations\202402261843207_Migracao260224.designer.cs">
+      <DependentUpon>202402261843207_Migracao260224.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402271212023_EditEnderecoEmpresarial.cs" />
+    <Compile Include="Migrations\202402271212023_EditEnderecoEmpresarial.designer.cs">
+      <DependentUpon>202402271212023_EditEnderecoEmpresarial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EmpresaModels.cs" />
     <Compile Include="Models\UsuarioModels.cs" />
@@ -303,9 +311,10 @@
     <Content Include="Views\Empresa\Index.cshtml" />
     <Content Include="Views\UsuarioModels\Create.cshtml" />
     <Content Include="Views\UsuarioModels\Delete.cshtml" />
-    <Content Include="Views\UsuarioModels\Details.cshtml" />
     <Content Include="Views\UsuarioModels\Edit.cshtml" />
     <Content Include="Views\UsuarioModels\Index.cshtml" />
+    <Content Include="Views\UsuarioModels\DetailsV2.cshtml" />
+    <Content Include="Views\Home\Exibir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -331,6 +340,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402151805438_ModelFixed.resx">
       <DependentUpon>202402151805438_ModelFixed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402261843207_Migracao260224.resx">
+      <DependentUpon>202402261843207_Migracao260224.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402271212023_EditEnderecoEmpresarial.resx">
+      <DependentUpon>202402271212023_EditEnderecoEmpresarial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

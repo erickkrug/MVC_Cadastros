@@ -1,0 +1,101 @@
+﻿@model IEnumerable<MVCErick.Models.UsuarioModels>
+
+@{
+    ViewBag.Title = "Exibir";
+}
+
+<h2>Exibir</h2>
+
+@*Campos de filtro*@
+<div>
+    @*Criar campos para filtros aqui dentro*@
+
+    <!-- View (Razor/HTML) -->
+    <form id="searchForm">
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="text" id="cpf" placeholder="CPF">
+        <input type="text" id="telefone" placeholder="Telefone">
+        <button type="button" onclick="buscarUsuarios()">Buscar</button>
+    </form>
+
+
+</div>
+
+
+@*Tabela para mostrar os dados*@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table id="tabelaResultados" class="table mb-6">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Nome Empresa</th>
+                        <th>Localidade</th>
+                        <th>CNPJ</th>
+                        <th>Descrição Empresa</th>
+                        <th>Criação Empresa</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTabela">
+                    <!-- Aqui serão adicionadas as linhas da tabela -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+     function buscarUsuarios() {
+        var nome = document.getElementById('nome').value;
+        var cpf = document.getElementById('cpf').value;
+         var telefone = document.getElementById('telefone').value;
+
+        var data = {
+            Nome: nome,
+            CPF: cpf,
+            Telefone: telefone
+        };
+
+         var tr = '';
+         var html = '';
+    $.ajax({
+    url: '@Url.Action("ExibirFiltrados", "Home")',
+    type: 'POST',
+    dataType: 'json',
+    data: data,
+    success: function (response) {
+        // Limpa o conteúdo atual da tabela
+        $('#corpoTabela').empty();
+
+        $.each(response, function (index, usuario) {
+            var tr = '<tr>';
+            tr += '<td>' + usuario.NomeUsuario + '</td>';
+            tr += '<td>' + usuario.CPF + '</td>';
+            tr += '<td>' + usuario.TelefoneUsuario + '</td>';
+            tr += '<td>' + usuario.NomeEmpresarial + '</td>';
+            tr += '<td>' + usuario.EnderecoEmpresa + '</td>';
+            tr += '<td>' + usuario.CNPJEmpresa + '</td>';
+            tr += '<td>' + usuario.DescricaoEmpresarial + '</td>';
+            tr += '<td>' + usuario.CriacaoEmpresa + '</td>';
+            tr += '</tr>';
+            html += tr;
+});
+
+
+        $("#corpoTabela").html(html)
+
+        // Exibe a tabela de resultados
+        $('#resultadoBusca').show();
+    },
+    error: function (xhr, status, error) {
+        console.log("Erro ao obter dados do servidor:", error);
+    }
+});
+
+    }
+
+</script>
