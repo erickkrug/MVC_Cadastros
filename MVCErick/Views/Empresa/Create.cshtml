@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2> Cadastrar Empresa </h2>
 
 @using (Html.BeginForm())
 {
@@ -18,85 +18,84 @@
     </head>
 
     <div class="form-horizontal">
-        <h4>EmpresaModels</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.NomeEmpresa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NomeEmpresa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NomeEmpresa, "", new { @class = "text-danger" })
+        <div class="row">
+
+            <div class="col-md-6">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NomeEmpresa, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.NomeEmpresa, new { htmlAttributes = new { @class = "form-control", style = "width:100%" } })
+                        @Html.ValidationMessageFor(model => model.NomeEmpresa, "", new { @class = "text-danger" })
+                </div>
+
             </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.DescricaoEmpresa, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.DescricaoEmpresa, new { htmlAttributes = new { @class = "form-control", style = "width:100%" } })
+                    @Html.ValidationMessageFor(model => model.DescricaoEmpresa, "", new { @class = "text-danger" })
+            </div>
+
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DescricaoEmpresa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DescricaoEmpresa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DescricaoEmpresa, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.EnderecoEmpresa, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.EnderecoEmpresa, new { htmlAttributes = new { @class = "form-control", style = "width:100%" } })
+                    @Html.ValidationMessageFor(model => model.EnderecoEmpresa, "", new { @class = "text-danger" })
             </div>
-        </div>
+            <div class="col-md-4">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EnderecoEmpresa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EnderecoEmpresa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EnderecoEmpresa, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CNPJ, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CNPJ, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CNPJ, "", new { @class = "text-danger" })
-
-                <script>
-                    $(document).ready(function () {
-                        $('#CNPJ').on('input', function () {
-                            var cnpj = $(this).val().replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos
-                            if (cnpj.length > 2) {
-                                cnpj = cnpj.substring(0, 2) + '.' + cnpj.substring(2); // Adiciona ponto após os primeiros 2 dígitos
-                            }
-                            if (cnpj.length > 6) {
-                                cnpj = cnpj.substring(0, 6) + '.' + cnpj.substring(6); // Adiciona ponto após os próximos 3 dígitos
-                            }
-                            if (cnpj.length > 10) {
-                                cnpj = cnpj.substring(0, 10) + '/' + cnpj.substring(10); // Adiciona barra após os próximos 4 dígitos
-                            }
-                            if (cnpj.length > 15) {
-                                cnpj = cnpj.substring(0, 15) + '-' + cnpj.substring(15); // Adiciona hífen após os próximos 4 dígitos
-                            }
-                            if (cnpj.length > 18) {
-                                cnpj = cnpj.substring(0, 18); // Limita o tamanho do CNPJ
-                            }
-                            $(this).val(cnpj);
+                @Html.LabelFor(model => model.CNPJ, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.CNPJ, new { htmlAttributes = new { @class = "form-control", style="width:100%" } })
+                    @Html.ValidationMessageFor(model => model.CNPJ, "", new { @class = "text-danger" })
+                    <script>
+                        $(document).ready(function () {
+                            $('#CNPJ').on('input', function () {
+                                var cnpj = $(this).val().replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos
+                                if (cnpj.length > 2) {
+                                    cnpj = cnpj.substring(0, 2) + '.' + cnpj.substring(2); // Adiciona ponto após os primeiros 2 dígitos
+                                }
+                                if (cnpj.length > 6) {
+                                    cnpj = cnpj.substring(0, 6) + '.' + cnpj.substring(6); // Adiciona ponto após os próximos 3 dígitos
+                                }
+                                if (cnpj.length > 10) {
+                                    cnpj = cnpj.substring(0, 10) + '/' + cnpj.substring(10); // Adiciona barra após os próximos 4 dígitos
+                                }
+                                if (cnpj.length > 15) {
+                                    cnpj = cnpj.substring(0, 15) + '-' + cnpj.substring(15); // Adiciona hífen após os próximos 4 dígitos
+                                }
+                                if (cnpj.length > 18) {
+                                    cnpj = cnpj.substring(0, 18); // Limita o tamanho do CNPJ
+                                }
+                                $(this).val(cnpj);
+                            });
                         });
-                    });
-                </script>
+                    </script>
+
 
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataCriacao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <!-- Usando input do tipo datetime-local com limitadores -->
-                @Html.EditorFor(model => model.DataCriacao, new { htmlAttributes = new { @class = "form-control", type = "datetime-local", min = "1753-01-01T00:00", max = "9999-12-31T23:59" } })
-                @Html.ValidationMessageFor(model => model.DataCriacao, "", new { @class = "text-danger" })
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DataCriacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <!-- Usando input do tipo datetime-local com limitadores -->
+                        @Html.EditorFor(model => model.DataCriacao, new { htmlAttributes = new { @class = "form-control", style = "width:100%", type = "datetime-local", min = "1753-01-01T00:00", max = "9999-12-31T23:59" } })
+                        @Html.ValidationMessageFor(model => model.DataCriacao, "", new { @class = "text-danger" })
+                </div>
             </div>
+
         </div>
 
 
-
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-offset-2">
+                <input type="submit" value="Salvar" class="btn btn-default" style="border-color:darkgray" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(" Voltar ", "Index")
 </div>

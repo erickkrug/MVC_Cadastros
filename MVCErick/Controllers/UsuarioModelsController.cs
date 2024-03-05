@@ -113,30 +113,21 @@ namespace MVCErick.Controllers
         }
 
         // GET: UsuarioModels/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UsuarioModels usuarioModels = db.Usuarios.Find(id);
-            if (usuarioModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuarioModels);
-        }
-
-        // POST: UsuarioModels/Delete/5
+        
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public JsonResult Delete(int? id)
         {
+           
             UsuarioModels usuarioModels = db.Usuarios.Find(id);
+            
+           
             db.Usuarios.Remove(usuarioModels);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            
+            return Json(true);
         }
+
+
 
         protected override void Dispose(bool disposing)
         {

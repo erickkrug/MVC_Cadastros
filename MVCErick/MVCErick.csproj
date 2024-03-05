@@ -305,15 +305,11 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Empresa\Create.cshtml" />
-    <Content Include="Views\Empresa\Delete.cshtml" />
-    <Content Include="Views\Empresa\Details.cshtml" />
     <Content Include="Views\Empresa\Edit.cshtml" />
     <Content Include="Views\Empresa\Index.cshtml" />
     <Content Include="Views\UsuarioModels\Create.cshtml" />
-    <Content Include="Views\UsuarioModels\Delete.cshtml" />
     <Content Include="Views\UsuarioModels\Edit.cshtml" />
     <Content Include="Views\UsuarioModels\Index.cshtml" />
-    <Content Include="Views\UsuarioModels\DetailsV2.cshtml" />
     <Content Include="Views\Home\Exibir.cshtml" />
   </ItemGroup>
   <ItemGroup>

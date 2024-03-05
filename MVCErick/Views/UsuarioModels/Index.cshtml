@@ -4,17 +4,35 @@
     ViewBag.Title = "Lista Contratual.";
 }
 
-<h2>Index</h2>
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
+</head>
+<h2> Usuarios </h2>
 @*Fazer o campo de buscas aqui*@
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<p typeof="button" class="btn btn-light border-dark"> @Html.ActionLink("Criar", "Create")</p>
+<table class="table table-hover" style="cursor:pointer">
+    @* Créditos do cursor pointer : Vinicius *@
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Empresa.ID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Empresa.NomeEmpresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empresa.DescricaoEmpresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empresa.EnderecoEmpresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empresa.CNPJ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empresa.DataCriacao)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
@@ -31,15 +49,27 @@
         <th>
             @Html.DisplayNameFor(model => model.Telefone)
         </th>
-        <th></th>
     </tr>
-
     @foreach (var item in Model)
     {
-        <tr>
+        <tr class="user-row pb-5" style="font-size:14px">
+            <td>
+                @Html.DisplayFor(modelItem => item.Empresa.ID)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Empresa.NomeEmpresa)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empresa.DescricaoEmpresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empresa.EnderecoEmpresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empresa.CNPJ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empresa.DataCriacao)
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
@@ -55,12 +85,166 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Telefone)
             </td>
+
+            <td class="row col-md-4 ml-2 mb-1">
+                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-warning">Editar</a>
+            </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                <button type="button" class="btn btn-danger" onclick="excluirUsuario('@item.Id')">Deletar</button>
             </td>
         </tr>
     }
-
 </table>
+<!-- Modal para exibir informações da empresa -->
+<div class="modal fade" id="detalhesEmpresaModal" tabindex="-1" aria-labelledby="detalhesEmpresaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detalhesEmpresaModalLabel">Detalhes da Empresa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Campos de informações da empresa -->
+                <div class="form-group">
+                    <label for="empresaID">Id da empresa:</label>
+                    <input type="text" id="empresaID" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="nomeEmpresa">Nome da Empresa:</label>
+                    <input type="text" id="nomeEmpresa" class="form-control">
+                </div>
+                <div class="form-group ">
+                    <label for="descricaoEmpresa">Descrição:</label>
+                    <input type="text" id="descricaoEmpresa" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="enderecoEmpresa">Endereço:</label>
+                    <input type="text" id="enderecoEmpresa" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="cnpjEmpresa">CNPJ:</label>
+                    <input type="text" id="cnpjEmpresa" name="cnpjEmpresa" class="form-control">
+                    <script>
+                        $(document).ready(function () {
+                            $('#cnpjEmpresa').on('input', function () {
+                                var cnpj = $(this).val().replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos
+                                if (cnpj.length > 2) {
+                                    cnpj = cnpj.substring(0, 2) + '.' + cnpj.substring(2); // Adiciona ponto após os primeiros 2 dígitos
+                                }
+                                if (cnpj.length > 6) {
+                                    cnpj = cnpj.substring(0, 6) + '.' + cnpj.substring(6); // Adiciona ponto após os próximos 3 dígitos
+                                }
+                                if (cnpj.length > 10) {
+                                    cnpj = cnpj.substring(0, 10) + '/' + cnpj.substring(10); // Adiciona barra após os próximos 4 dígitos
+                                }
+                                if (cnpj.length > 15) {
+                                    cnpj = cnpj.substring(0, 15) + '-' + cnpj.substring(15); // Adiciona hífen após os próximos 4 dígitos
+                                }
+                                if (cnpj.length > 18) {
+                                    cnpj = cnpj.substring(0, 18); // Limita o tamanho do CNPJ
+                                }
+                                $(this).val(cnpj);
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="form-group">
+                    <label for="dataCriacaoEmpresa">Data de Criação:</label>
+                    <input type="text" id="dataCriacaoEmpresa" class="form-control">
+                </div>
+                <button type="button" id="salvarEdicaoEmpresa" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+</div>
+@* Escopo de pop-up de exclusão de usuario *@
+<script>
+    $(document).ready(function () {
+
+        // Associando o evento de clique a todas as linhas da tabela com a classe '.user-row'
+        $('.user-row').click(function () {
+            var empresaID = $(this).find('td:nth-child(1)').text().trim()
+            var nomeEmpresa = $(this).find('td:nth-child(2)').text().trim();
+            var descricaoEmpresa = $(this).find('td:nth-child(3)').text().trim();
+            var enderecoEmpresa = $(this).find('td:nth-child(4)').text().trim();
+            var cnpjEmpresa = $(this).find('td:nth-child(5)').text().trim();
+            var dataCriacaoEmpresa = $(this).find('td:nth-child(6)').text().trim();
+
+            $('#empresaID').val(empresaID);
+            $('#nomeEmpresa').val(nomeEmpresa);
+            $('#descricaoEmpresa').val(descricaoEmpresa);
+            $('#enderecoEmpresa').val(enderecoEmpresa);
+            $('#cnpjEmpresa').val(cnpjEmpresa);
+            $('#dataCriacaoEmpresa').val(dataCriacaoEmpresa);
+            $('#detalhesEmpresaModal').modal('show');
+            // Evento para salvar as alterações
+            $('#salvarEdicaoEmpresa').click(function () {
+                // Obter os novos valores dos campos do modal
+                var empresaID = $('#empresaID').val();
+                var novoNomeEmpresa = $('#nomeEmpresa').val().trim();
+                var novaDescricaoEmpresa = $('#descricaoEmpresa').val().trim();
+                var novoEnderecoEmpresa = $('#enderecoEmpresa').val().trim();
+                var novoCnpjEmpresa = $('#cnpjEmpresa').val().trim();
+                var novaDataCriacaoEmpresa = $('#dataCriacaoEmpresa').val().trim();
+                // Objeto com os dados a serem enviados para a controller
+                var dadosEmpresa = {
+                    ID: empresaID,
+                    NomeEmpresa: novoNomeEmpresa,
+                    DescricaoEmpresa: novaDescricaoEmpresa,
+                    EnderecoEmpresa: novoEnderecoEmpresa,
+                    CNPJ: novoCnpjEmpresa,
+                    DataCriacao: novaDataCriacaoEmpresa
+                };
+                // Enviar dados para a controller via AJAX
+                $.ajax({
+                    url: '/Empresa/Edit', // Defina a URL da sua controller e action
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(dadosEmpresa),
+                    success: function (response) {
+                        window.alert("Dados atualizados com sucesso");
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        // Lógica para lidar com erros na requisição
+                        console.error('Erro ao enviar dados:', error);
+                        // Se necessário, adicione aqui ações a serem executadas em caso de erro
+                    }
+                });
+            });
+        });
+    });
+    function excluirUsuario(usuarioId)
+    {
+        // Exibe um alerta de confirmação
+        var confirmacao = confirm("Tem certeza que deseja excluir este usuário?");
+        // Se o usuário confirmar a exclusão
+        if (confirmacao == true)
+        {
+            // Chama o método de exclusão via AJAX
+            $.ajax({
+                url: '@Url.Action("Delete", "UsuarioModels")',
+                type: 'POST',
+                data: { id: usuarioId },
+                /*Headers: {RequestVerificationToken : Token},*/
+                success: function (response)
+                {
+                    location.reload();
+                    alert("Usuario Excluido")
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erro ao excluir o usuário:", error);
+                }
+            });
+        }
+    }
+
+    function formatarcnpj()
+    {
+        var Mask = new Inputmask("00.000.000/0000-00");
+        Mask.mask("cnpjEmpresa");
+    }
+
+</script>
