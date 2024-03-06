@@ -6,8 +6,6 @@
 
 <h2>Editar</h2>
 
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -17,12 +15,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
     </head>
-
     <div class="form-horizontal">
-
-
         <div class="row">
-
             <div class="col-md-6">
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -33,7 +27,6 @@
                 @Html.EditorFor(model => model.NomeEmpresa, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NomeEmpresa, "", new { @class = "text-danger" })
             </div>
-
 
             <div class="col-md-6">
                 @Html.LabelFor(model => model.DescricaoEmpresa, htmlAttributes: new { @class = "control-label col-md-2" })

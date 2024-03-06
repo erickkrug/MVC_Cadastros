@@ -127,8 +127,6 @@ namespace MVCErick.Controllers
             return Json(true);
         }
 
-
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

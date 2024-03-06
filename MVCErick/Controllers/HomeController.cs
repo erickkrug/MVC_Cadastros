@@ -14,84 +14,69 @@ namespace MVCErick.Controllers
 {
     public class HomeController : Controller
     {
-
         private ApplicationDBContext _dbContext = new ApplicationDBContext();
 
         // GET: Empresa
         public ActionResult Index()
         {
-            return View(_dbContext.Usuarios.ToList());
+            List<UsuarioModels> usuarios = _dbContext.Usuarios.ToList();
+
+            if (usuarios != null && usuarios.Any())
+                ViewBag.UsuariosArray = usuarios.ToArray();
+            else
+                Console.WriteLine(" Houve um problema, procure se vire ;3");// ou qualquer outro tratamento desejado
+            return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = " Ãprenda um pouco sobre nós ";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = " Precisando de Ajuda ?";
 
             return View();
         }
 
         public ActionResult Formulary()
         {
-            ViewBag.Message = "Your Formulary page.";
+            ViewBag.Message = " Alguns Formulários";
             return View();
         }
 
         public ActionResult RegisterUsers()
         {
-            ViewBag.Message = "Your user registration page ;3";
+            ViewBag.Message = " Pagina de Registros ;3";
             return View();
         }
 
-        public ActionResult Exibir()
-        {
-            return View();
-        }
-
-        public ActionResult ExibirFiltrados(UsuarioRequest objRequest)
+        public ActionResult Exibir(UsuarioRequest objRequest)
         {
             var usuarios = _dbContext.Usuarios.Include(w => w.Empresa).ToList();
 
-            //List<UsuarioResponse> exemploDeModelo = usuarios
-            //    .Where(model => model.CPF == objRequest.CPF)
-            //    .Select(item => new UsuarioResponse()
-            //    {
-            //        //Preencher objeto para retorno
-            //        CNPJ = item.CPF,
+            List<UsuarioResponse> usuariomodel = usuarios.Where(model =>
+                string.IsNullOrEmpty(objRequest.Nome) || model.Nome.IndexOf(objRequest.Nome, StringComparison.OrdinalIgnoreCase) >= 0)
+                .Select(item => new UsuarioResponse()
+                {
+                    NomeUsuario = item.Nome,
+                    CPF = item.CPF,
+                    TelefoneUsuario = item.Telefone,
+                    DescricaoUsuario = item.Descricao,
+                    NomeEmpresarial = item.Empresa.NomeEmpresa,
+                    EnderecoEmpresa = item.Empresa.EnderecoEmpresa,
+                    CNPJEmpresa = item.Empresa.CNPJ,
+                    CriacaoEmpresa = item.Empresa.DataCriacao,
+                    DescricaoEmpresarial = item.Empresa.DescricaoEmpresa
+                }).ToList();
 
-            //    }).ToList();
+            ViewBag.Usuarios = usuariomodel; // Armazena a lista de usuários na ViewBag
 
-
-            List<UsuarioResponse> usuariomodel = usuarios
-            .Where(model =>
-            (string.IsNullOrEmpty(objRequest.CPF) || model.CPF == objRequest.CPF) && // Verifica se o CPF é vazio ou corresponde ao filtro
-            (string.IsNullOrEmpty(objRequest.Nome) || model.Nome == objRequest.Nome) && // Verifica se o Nome é vazio ou corresponde ao filtro
-            (string.IsNullOrEmpty(objRequest.Telefone) || model.Telefone == objRequest.Telefone)) // Verifica se o Telefone é vazio ou corresponde ao filtro
-            .Select(item => new UsuarioResponse()
-    {
-            // Preencher objeto para retorno
-            NomeUsuario = item.Nome,
-            CPF = item.CPF,
-            TelefoneUsuario = item.Telefone,
-            DescricaoUsuario = item.Descricao,
-            NomeEmpresarial = item.Empresa.NomeEmpresa,
-            EnderecoEmpresa = item.Empresa.EnderecoEmpresa,
-            CNPJEmpresa = item.Empresa.CNPJ,
-            CriacaoEmpresa = item.Empresa.DataCriacao,
-            DescricaoEmpresarial = item.Empresa.DescricaoEmpresa
-            }).ToList();
-
-            var json = JsonConvert.SerializeObject(usuariomodel); // Serializa os dados para JSON
-
-            return Content(json, "application/json"); // Retorna os dados serializados
+            return View();
         }
-
 
     }
 }

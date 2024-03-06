@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<MVCErick.Models.UsuarioModels>
-
 @{
     ViewBag.Title = "Exibir";
 }
@@ -8,6 +7,7 @@
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 @*Campos de filtro*@
@@ -16,90 +16,70 @@
 
     <!-- View (Razor/HTML) -->
     <form id="searchForm">
-        <input type="text" id="nome" placeholder="Nome">
-        <input type="text" id="cpf" placeholder="CPF">
-        <input type="text" id="telefone" placeholder="Telefone">
+        <input class="w-100" type="text" id="inputBusca" placeholder="Nome" style="border-radius:5px">
     </form>
 </div>
 
+@*<input type="text" id="pesquisa" placeholder="Pesquisar">
+    <button onclick="filtrarUsuarios()">Pesquisar</button>*@
 
-@*Tabela para mostrar os dados*@
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <table id="tabelaResultados" class="table mb-6">
-                <thead>
+@{
+    var usuarios = ViewBag.Usuarios as List<MVCErick.Models.UsuarioResponse>;
+}
+
+<div id="userList">
+    @if (usuarios != null && usuarios.Any())
+    {
+        <table id="tabelaResultados" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Empresa</th>
+                    <th>Endereço</th>
+                    <th>CNPJ</th>
+                    <th>Descrição</th>
+                    <th>Criação</th>
+                    <!-- Adicione outras colunas conforme necessário -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var usuario in usuarios)
+                {
                     <tr>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Telefone</th>
-                        <th>Nome Empresa</th>
-                        <th>Localidade</th>
-                        <th>CNPJ</th>
-                        <th>Descrição Empresa</th>
-                        <th>Criação Empresa</th>
+                        <td>@usuario.NomeUsuario</td>
+                        <td>@usuario.CPF</td>
+                        <td>@usuario.TelefoneUsuario</td>
+                        <td>@usuario.NomeEmpresarial</td>
+                        <td>@usuario.EnderecoEmpresa</td>
+                        <td>@usuario.CNPJEmpresa</td>
+                        <td>@usuario.DescricaoEmpresarial</td>
+                        <td>@usuario.CriacaoEmpresa</td>
+                        <!-- Adicione outras colunas conforme necessário -->
                     </tr>
-                </thead>
-                <tbody id="corpoTabela">
-                </tbody>
-            </table>
-        </div>
-    </div>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Nenhum usuário encontrado.</p>
+    }
 </div>
 
 <script>
-    $(document).ready(function () {
-        buscarUsuarios();
+    document.getElementById('inputBusca').addEventListener('input', function () {
+        var searchTerm = this.value.trim().toLowerCase();
+        var rows = document.querySelectorAll('#tabelaResultados tbody tr');
 
-        $('#nome, #cpf, #telefone').on('input', function () {
-            // Chama a função buscarUsuarios automaticamente quando o usuário digita nos campos de filtro
-            buscarUsuarios();
-        });
-    });
-
-    function buscarUsuarios() {
-        var nome = $('#nome').val();
-        var cpf = $('#cpf').val();
-        var telefone = $('#telefone').val();
-
-        var data = {
-            Nome: nome,
-            CPF: cpf,
-            Telefone: telefone
-        };
-
-        $.ajax({
-            url: '@Url.Action("ExibirFiltrados", "Home")',
-            type: 'POST',
-            dataType: 'json',
-            data: data,
-            success: function (response) {
-                // Limpa o conteúdo atual da tabela
-                $('#corpoTabela').empty();
-
-                var html = '';
-                $.each(response, function (index, usuario) {
-                    var tr = '<tr>';
-                    tr += '<td>' + usuario.NomeUsuario + '</td>';
-                    tr += '<td>' + usuario.CPF + '</td>';
-                    tr += '<td>' + usuario.TelefoneUsuario + '</td>';
-                    tr += '<td>' + usuario.NomeEmpresarial + '</td>';
-                    tr += '<td>' + usuario.EnderecoEmpresa + '</td>';
-                    tr += '<td>' + usuario.CNPJEmpresa + '</td>';
-                    tr += '<td>' + usuario.DescricaoEmpresarial + '</td>';
-                    tr += '<td>' + usuario.CriacaoEmpresa + '</td>';
-                    tr += '</tr>';
-                    html += tr;
-                });
-
-                $("#corpoTabela").html(html);
-
-                // Exibe a tabela de resultados
-                $('#resultadoBusca').show();
-            },
-            error: function (xhr, status, error) {
-                console.log("Erro ao obter dados do servidor:", error);
+        rows.forEach(function (row) {
+            var nome = row.querySelector('td:nth-child(1)').textContent.trim().toLowerCase();
+            if (nome.includes(searchTerm)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
             }
         });
-    }
+    });
 </script>

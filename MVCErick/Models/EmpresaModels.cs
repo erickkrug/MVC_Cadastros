@@ -26,8 +26,6 @@ namespace MVCErick.Models
         [DisplayName("Criação")]
         public DateTime DataCriacao { get; set; }
 
-
-
         //Muitos pra um
         [JsonIgnore]
         public List<UsuarioModels> Usuarios { get; set; }

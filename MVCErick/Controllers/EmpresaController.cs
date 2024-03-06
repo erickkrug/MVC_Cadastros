@@ -96,7 +96,6 @@ namespace MVCErick.Controllers
             }
             return View(empresaModels);
         }
-
         // GET: Empresa/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -123,29 +122,6 @@ namespace MVCErick.Controllers
             return RedirectToAction("Index");
         }
 
-
-        //[HttpPost]
-        //[Route("EditarEmpresa")]
-        //public bool EditarEmpresa(EmpresaModels empresaModels)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _dbContext.Entry(empresaModels).State = EntityState.Modified;
-        //            _dbContext.SaveChanges();
-        //            return true;
-        //        }
-        //        catch (DbUpdateConcurrencyException ex)
-        //        {
-        //            // Lidar com a exceção de concorrência otimista
-        //            // Recarregar a entidade ou informar o usuário sobre o conflito
-        //            Console.WriteLine("Conflito de concorrência otimista: " + ex.Message);
-        //            return false;
-        //        }
-        //    }
-        //    return false;
-        //}
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -15,12 +15,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
     </head>
-
     <div class="form-horizontal">
 
         <div class="row">
-
-
             <div class="col-md-6">
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -32,7 +29,6 @@
 
 
                 </div>
-
             </div>
 
             <div class="col-md-6">
@@ -45,18 +41,12 @@
 
                 </div>
             </div>
-
         </div>
-
         <div class="row">
-
             <div class="col-md-4">
-
                 @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
-
                 @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control", style = "width:100%", id = "CPF", placeholder = "999.999.999-99" } })
                 @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
-
                 <script>
                     $(document).ready(function () {
                         $("#CPF").on('input', function () {
@@ -77,10 +67,7 @@
                     });
                 </script>
             </div>
-
-
                     <div class="col-md-4">
-                
                     @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
                         @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @class = "form-control", style = "width:100%", id = "Telefone", placeholder = "(XX)XXXX-XXXX" } })
                         @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
@@ -103,7 +90,6 @@
                         </script>
                     </div>
 
-
                     <div class="col-md-4">
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -115,24 +101,12 @@
                         </div>
                     </div>
 
-
-
             <div class="col-md-4">
                     @Html.LabelFor(model => model.EmpresaId, "EmpresaId", htmlAttributes: new { @class = "control-label col-md-2" })
                         @Html.DropDownList("EmpresaId", null, htmlAttributes: new { @class = "form-control", style = "width:100%" })
                         @Html.ValidationMessageFor(model => model.EmpresaId, " É obrigatorio que o usuário selecione a empresa a qual está atrelado! ", new { @class = "text-danger" })
             </div>
         </div>
-        
-
-
-
-
-
-        <!-- Outros campos do formulário -->
-        <!-- Outros campos do formulário -->
-
-
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

@@ -23,8 +23,6 @@ namespace MVCErick.Models
         public DateTime DataCriacao { get; set; }
     }
 
-
-
     public class UsuarioResponse
     {
         public string NomeUsuario { get; set; }
@@ -37,8 +35,6 @@ namespace MVCErick.Models
         public string CNPJEmpresa { get; set; }
         public DateTime CriacaoEmpresa { get; set; }
     }
-
-
 
     public class UsuarioModels
     {
@@ -55,11 +51,7 @@ namespace MVCErick.Models
         [DisplayName("Empresa")]
         public int EmpresaId { get; set; }
 
-
-
-
         //Um para muitos
-        
         public EmpresaModels Empresa { get; set; }
 
 
